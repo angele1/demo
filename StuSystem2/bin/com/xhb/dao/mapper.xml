@@ -116,5 +116,51 @@
  		delete  from college where college_id=#{college_id} and college_name=#{college_name} and major=#{major} and classes=#{classes}
  	</delete>
  	
-
+	<select id="selectAllGrade" resultType="grade">
+		select * from grade
+	</select>
+	
+	<select id="selectMajor" resultType="college">
+		select major from college where college_name = #{college_name}
+	</select>
+	
+	<insert id="insertGrade" parameterType="grade">
+		insert into grade(stu_id,stu_name,course_name,grade) values(#{stu_id},#{stu_name},#{course_name},#{grade})
+	</insert>
+	
+	<delete id="deleteGrade">
+		delete from grade where stu_id=#{stu_id} and course_name=#{course_name}
+	</delete>
+	
+	<select id="selectGrade" resultType="grade">
+		select * from grade where stu_id=#{stu_id} and course_name=#{course_name}
+	</select>
+	
+	<update id="updateGrade" parameterType="grade">
+		update grade set grade=#{grade} where stu_id=#{stu_id} and course_name=#{course_name}
+	</update>
+	
+	<select id="selectGradeI" resultType="grade">
+ 		select * from grade where stu_id like "%"#{stu_id}"%"
+ 	</select>
+ 	
+ 	<select id="selectGradeN" resultType="grade">
+ 		select * from grade where stu_name like "%"#{stu_name}"%"
+ 	</select>
+ 	
+ 	<select id="selectTeCourse" resultType="course">
+ 		select * from course where course_te = #{course_te}
+ 	</select>
+ 	
+ 	<select id="selectStuCourse" resultType="grade">
+ 		select * from grade where course_name = #{course_name}
+ 	</select>
+ 	
+ 	<select id="selectGradeById" resultType="grade">
+ 		select * from grade where stu_id = #{stu_id}
+ 	</select>
+ 	
+ 	<select id="selectOtherCourse" resultType="course">
+ 		select * from course where course_name not in(select course_name from grade where stu_id = #{stu_id})
+ 	</select>
  </mapper>

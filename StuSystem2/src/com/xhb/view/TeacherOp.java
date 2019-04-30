@@ -57,6 +57,12 @@ public class TeacherOp extends JFrame {
 		button.setFont(new Font("Ώ¬Με", Font.PLAIN, 18));
 		
 		JButton button_1 = new JButton("\u5B66\u751F\u7BA1\u7406");
+		button_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new StuManage();
+				//dispose();
+			}
+		});
 		button_1.setFont(new Font("Ώ¬Με", Font.PLAIN, 18));
 		
 		JButton button_2 = new JButton("\u5176\u4ED6\u6559\u5E08");

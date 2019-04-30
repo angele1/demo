@@ -10,6 +10,10 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import com.xhb.dao.UserService;
+import com.xhb.dao.UserServiceImpl;
+import com.xhb.entity.Grade;
+
 import java.awt.Toolkit;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -18,6 +22,7 @@ import javax.swing.JButton;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import java.awt.Font;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.awt.event.ActionEvent;
 
 public class MyCourseInfo extends JFrame {
@@ -57,11 +62,18 @@ public class MyCourseInfo extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		
+		data = queryData();
 		tableModel = new DefaultTableModel(data, head);
 		table = new JTable(tableModel);
 		JScrollPane scrollPane = new JScrollPane(table);
 		
 		button = new JButton("\u5176\u4ED6\u8BFE\u7A0B");
+		button.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				dispose();
+				new ChooseCourse();
+			}
+		});
 		button.setFont(new Font("¿¬Ìå", Font.PLAIN, 18));
 		
 		button_1 = new JButton("\u8FD4\u56DE");
@@ -102,4 +114,18 @@ public class MyCourseInfo extends JFrame {
 		setVisible(true);
 	}
 
+	public Object[][] queryData(){
+		UserService service = new UserServiceImpl();
+		Grade grade = new Grade();
+		grade.setStu_id(LoginFrame.un);
+		List<Grade> list = service.selectGradeById(grade);
+		data = new Object[list.size()][head.length]; 
+		for(int i=0;i<list.size();i++)
+			for(int j=0;j<head.length;j++) {
+				data[i][0]=list.get(i).getCourse_name();
+				data[i][1]=list.get(i).getGrade();
+				
+			}
+		return data;
+	}
 }

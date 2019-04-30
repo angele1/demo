@@ -10,6 +10,7 @@
  		<typeAlias type="com.xhb.entity.Notice" alias="notice"/>
  		<typeAlias type="com.xhb.entity.Course" alias="course"/>
  		<typeAlias type="com.xhb.entity.College" alias="college"/>
+ 		<typeAlias type="com.xhb.entity.Grade" alias="grade"/>
  	</typeAliases>
  	<environments default="test">
  		<environment id="test">

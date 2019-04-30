@@ -9,6 +9,7 @@ import org.apache.ibatis.session.SqlSession;
 import com.mysql.jdbc.Statement;
 import com.xhb.entity.College;
 import com.xhb.entity.Course;
+import com.xhb.entity.Grade;
 import com.xhb.entity.Notice;
 import com.xhb.entity.User;
 import com.xhb.utils.DbUtil;
@@ -209,6 +210,82 @@ public class UserServiceImpl implements UserService {
 		sqlSession.close();
 		
 	}
+	@Override
+	public List<Grade> selectAllGrade() {
+		List<Grade> list = sqlSession.selectList("selectAllGrade");
+		sqlSession.close();
+		return list;
+	}
+	@Override
+	public List<College> selectMajor(String name) {
+		List<College> list = sqlSession.selectList("selectMajor", name);
+		sqlSession.close();
+		return list;
+	}
+	@Override
+	public void insertGrade(Grade grade) {
+		sqlSession.insert("insertGrade", grade);
+		sqlSession.commit();
+		sqlSession.close();
+		
+	}
+	@Override
+	public void deleteGrade(Grade grade) {
+		sqlSession.delete("deleteGrade", grade);
+		sqlSession.commit();
+		sqlSession.close();
+		
+	}
+	@Override
+	public Grade selectGrade(Grade grade) {
+		Grade grade2 = sqlSession.selectOne("selectGrade", grade);
+		sqlSession.close();
+		return grade2;
+	}
+	@Override
+	public void updateGrade(Grade grade) {
+		sqlSession.update("updateGrade",grade);
+		sqlSession.commit();
+		sqlSession.close();
+		
+	}
+	@Override
+	public List<Grade> selectGradeI(String id) {
+		List<Grade> list = sqlSession.selectList("selectGradeI", id);
+		sqlSession.close();
+		return list;
+	}
+	@Override
+	public List<Grade> selectGradeN(String name) {
+		List<Grade> list = sqlSession.selectList("selectGradeN", name);
+		sqlSession.close();
+		return list;
+	}
+	@Override
+	public List<Course> selectTeCourse(String name) {
+		List<Course> list = sqlSession.selectList("selectTeCourse", name);
+		sqlSession.close();
+		return list;
+	}
+	@Override
+	public List<Grade> selectStuCourse(String course) {
+		List<Grade> list = sqlSession.selectList("selectStuCourse", course);
+		sqlSession.close();
+		return list;
+	}
+	@Override
+	public List<Grade> selectGradeById(Grade grade) {
+		List<Grade> list = sqlSession.selectList("selectGradeById", grade);
+		sqlSession.close();
+		return list;
+	}
+	@Override
+	public List<Course> selectOtherCourse(Grade grade) {
+		List<Course> list = sqlSession.selectList("selectOtherCourse", grade);
+		sqlSession.close();
+		return list;
+	}
+	
 	
 
 }

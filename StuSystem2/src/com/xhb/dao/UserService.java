@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.xhb.entity.College;
 import com.xhb.entity.Course;
+import com.xhb.entity.Grade;
 import com.xhb.entity.Notice;
 import com.xhb.entity.User;
 
@@ -54,4 +55,20 @@ public interface UserService {
 	List<College> selectLikeCo2(String name);
 	void insertCollege(College college);
 	void deleteCollege(College college);
+	
+	List<Grade> selectAllGrade();
+	List<College> selectMajor(String name);
+	void insertGrade(Grade grade);
+	void deleteGrade(Grade grade);
+	Grade selectGrade(Grade grade);
+	void updateGrade(Grade grade);
+	
+	List<Grade> selectGradeI(String id);
+	List<Grade> selectGradeN(String name);
+	
+	List<Course> selectTeCourse(String name);
+	List<Grade> selectStuCourse(String course);
+	List<Grade> selectGradeById(Grade grade);
+	
+	List<Course> selectOtherCourse(Grade grade);
 }
