@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <mapper namespace = "com.xhb.mapper">
+ 	<select id="selectAll" resultType="user">
+ 		select * from user
+ 	</select>
+ 	
+ 	<select id="selectById" resultType="user">
+ 		select * from user where id = #{id}
+ 	</select>
+ 	
+ 	<select id="selectByName" resultType="user" parameterType="String">
+ 		select * from user where real_name=#{real_name}
+ 	</select>
+ 	
+ 	<insert id="insertUser" parameterType="user">
+ 		insert into user(id,password,real_name,permission) values(#{id},#{password},#{real_name},#{permission})
+ 	</insert>
+ 	
+ 	<update id="updateById">
+ 		update user set real_name = #{real_name},password=#{password},sex=#{sex},birthday=#{birthday},college=#{college},major=#{major},classes=#{classes},phone=#{phone},contact=#{contact}
+ 		where id=#{id}
+ 	</update>
+ 	
+ 	<select id="selectClassmate" resultType="user">
+ 		select * from user where permission=#{permission} and college=#{college} and major=#{major} and classes=#{classes}
+ 	</select>
+ 	
+ 	<select id="selectLikeId" resultType="user">
+ 		select * from user where id like "%"#{id}"%"
+ 	</select>
+ 	
+ 	<select id="selectLikeName" resultType="user">
+ 		select * from user where real_name like "%"#{real_name}"%"
+ 	</select>
+ 	
+ 	<insert id="insertNotice" parameterType="notice">
+ 		insert into notice(notice_content,notice_permission) values(#{notice_content},#{notice_permission})
+ 	</insert>
+ 	
+ 	<select id="selectNotice" resultType="notice">
+ 		select * from notice
+ 	</select>
+ 	
+ 	<delete id="deleteNotice" parameterType="String">
+ 		delete from notice where notice_content=#{notice_content}
+ 	</delete>
+ 	
+ 	<update id="updateNotice">
+ 		update notice set notice_content = #{notice_content} where notice_id=#{notice_id}
+ 	</update>
+ 	
+ 	<select id="selectUserType" resultType="user">
+ 		select * from user where permission = #{permission}
+ 	</select>
+ 	
+ 	<select id="selectLikeP1" resultType="user">
+ 		select * from user where id like "%"#{id}"%" and permission = #{permission}
+ 	</select>
+ 	
+ 	<select id="selectLikeP2" resultType="user">
+ 		select * from user where real_name like "%"#{real_name}"%" and permission = #{permission}
+ 	</select>
+ 	
+ 	<delete id="deleteUser">
+ 		delete from user where id = #{id}
+ 	</delete>
+ 	
+ 	<select id="selectCourse" resultType="course">
+ 		select * from course
+ 	</select>
+ 	
+ 	<select id="selectCourseI" resultType="course">
+ 		select * from course where course_id like "%"#{course_id}"%"
+ 	</select>
+ 	
+ 	<select id="selectCourseN" resultType="course">
+ 		select * from course where course_name like "%"#{course_name}"%"
+ 	</select>
+ 	
+ 	<select id="selectCourseById" resultType="course">
+ 		select * from course where course_id=#{course_id}
+ 	</select>
+ 	
+ 	<update id="updateCourse">
+ 		update course set course_name=#{course_name}, course_te=#{course_te} where course_id=#{course_id}
+ 	</update>
+ 	
+ 	<insert id="insertCourse" parameterType="course">
+ 		insert into course(course_id,course_name,course_te) values(#{course_id},#{course_name},#{course_te})
+ 	</insert>
+ 	
+ 	<delete id="deleteCourse">
+ 		delete from course where course_id = #{course_id}
+ 	</delete>
+ 	
+ 	<select id="selectAllCollege" resultType="college">
+ 		select * from college 
+ 	</select>
+ 	
+ 	 <select id="selectCollegeI" resultType="college">
+ 		select * from college where college_id like "%"#{college_id}"%" and permission=#{permission}
+ 	</select>
+ 	
+ 	<select id="selectCollegeN" resultType="college">
+ 		select * from college where college_name like "%"#{college_name}"%" and permission=#{permission}
+ 	</select>
+ 	
+ 	<insert id="insertCollege" parameterType="college">
+ 		insert into college(college_id,college_name,major,classes) values(#{college_id},#{college_name},#{major},#{classes})
+ 	</insert>
+ 	
+ 	<delete id="deleteCollege">
+ 		delete  from college where college_id=#{college_id} and college_name=#{college_name} and major=#{major} and classes=#{classes}
+ 	</delete>
+ 	
+
+ </mapper>

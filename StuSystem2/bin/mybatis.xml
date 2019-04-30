@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ <configuration>
+ 	
+ 	<properties resource="jdbc.properties"/>
+ 	<typeAliases>
+ 		<typeAlias type="com.xhb.entity.User" alias="user"/>
+ 		<typeAlias type="com.xhb.entity.Notice" alias="notice"/>
+ 		<typeAlias type="com.xhb.entity.Course" alias="course"/>
+ 		<typeAlias type="com.xhb.entity.College" alias="college"/>
+ 	</typeAliases>
+ 	<environments default="test">
+ 		<environment id="test">
+ 			<transactionManager type="JDBC"></transactionManager>
+ 			<dataSource type="POOLED">
+ 				<property name="driver" value="${jdbc.driver}"/>
+ 				<property name="url" value="${jdbc.url}"/>
+ 				<property name="username" value="${jdbc.username}"/>
+ 				<property name="password" value="${jdbc.password}"/>
+ 			</dataSource>
+ 		</environment>
+ 	</environments>
+ 	
+ 	<mappers>
+ 		<mapper resource = "com/xhb/dao/mapper.xml"/>
+ 	</mappers>
+ </configuration>
