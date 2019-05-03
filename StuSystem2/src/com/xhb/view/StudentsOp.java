@@ -101,6 +101,11 @@ public class StudentsOp extends JFrame {
 		classInfoBtn.setFont(new Font("Ώ¬Με", Font.PLAIN, 18));
 		
 		JButton examBtn = new JButton("\u5728\u7EBF\u8003\u8BD5");
+		examBtn.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				new OnlineEx();
+			}
+		});
 		examBtn.setFont(new Font("Ώ¬Με", Font.PLAIN, 18));
 		
 		

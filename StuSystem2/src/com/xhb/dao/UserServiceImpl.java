@@ -285,6 +285,12 @@ public class UserServiceImpl implements UserService {
 		sqlSession.close();
 		return list;
 	}
+	@Override
+	public List<Grade> selectNull(Grade grade) {
+		List<Grade> list = sqlSession.selectList("selectNull", grade);
+		sqlSession.close();
+		return list;
+	}
 	
 	
 

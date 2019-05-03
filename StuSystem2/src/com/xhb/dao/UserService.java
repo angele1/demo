@@ -71,4 +71,5 @@ public interface UserService {
 	List<Grade> selectGradeById(Grade grade);
 	
 	List<Course> selectOtherCourse(Grade grade);
+	List<Grade> selectNull(Grade grade);
 }

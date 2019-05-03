@@ -30,7 +30,7 @@ public class MyCourseInfo extends JFrame {
 	private JPanel contentPane;
 	private JTable table;
 	private Object[][] data;
-	private String[] head= {"课程","成绩"};
+	private String[] head= {"课程编号","课程","成绩"};
 	private DefaultTableModel tableModel;
 	private JButton button;
 	private JButton button_1;
@@ -122,8 +122,9 @@ public class MyCourseInfo extends JFrame {
 		data = new Object[list.size()][head.length]; 
 		for(int i=0;i<list.size();i++)
 			for(int j=0;j<head.length;j++) {
-				data[i][0]=list.get(i).getCourse_name();
-				data[i][1]=list.get(i).getGrade();
+				data[i][0]=list.get(i).getCourse_id();
+				data[i][1]=list.get(i).getCourse_name();
+				data[i][2]=list.get(i).getGrade();
 				
 			}
 		return data;

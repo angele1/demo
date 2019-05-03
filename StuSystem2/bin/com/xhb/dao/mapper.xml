@@ -125,7 +125,7 @@
 	</select>
 	
 	<insert id="insertGrade" parameterType="grade">
-		insert into grade(stu_id,stu_name,course_name,grade) values(#{stu_id},#{stu_name},#{course_name},#{grade})
+		insert into grade(stu_id,stu_name,course_name,grade,course_id,exam) values(#{stu_id},#{stu_name},#{course_name},#{grade},#{course_id},#{exam})
 	</insert>
 	
 	<delete id="deleteGrade">
@@ -162,5 +162,9 @@
  	
  	<select id="selectOtherCourse" resultType="course">
  		select * from course where course_name not in(select course_name from grade where stu_id = #{stu_id})
+ 	</select>
+ 	
+ 	<select id="selectNull" resultType="grade">
+ 		select * from grade where stu_id = #{stu_id} and grade is null
  	</select>
  </mapper>
