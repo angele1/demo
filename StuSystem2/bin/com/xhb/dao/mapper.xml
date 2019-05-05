@@ -12,7 +12,7 @@
  	</select>
  	
  	<select id="selectByName" resultType="user" parameterType="String">
- 		select * from user where real_name=#{real_name}
+ 		select * from user where real_name=#{real_name} 
  	</select>
  	
  	<insert id="insertUser" parameterType="user">
@@ -25,15 +25,23 @@
  	</update>
  	
  	<select id="selectClassmate" resultType="user">
- 		select * from user where permission=#{permission} and college=#{college} and major=#{major} and classes=#{classes}
+ 		select * from user where permission=#{permission} and college=#{college} and major=#{major} and classes=#{classes} and real_name!=#{real_name}
  	</select>
  	
  	<select id="selectLikeId" resultType="user">
- 		select * from user where id like "%"#{id}"%"
+ 		select * from user where id like "%"#{id}"%" and permission=#{permission}  
  	</select>
  	
  	<select id="selectLikeName" resultType="user">
- 		select * from user where real_name like "%"#{real_name}"%"
+ 		select * from user where real_name like "%"#{real_name}"%"  and permission=#{permission}  
+ 	</select>
+ 	
+ 	<select id="stuLikeId" resultType="user">
+ 		select * from user where id like "%"#{id}"%" and permission=#{permission} and college=#{college} and major=#{major} and classes=#{classes} and real_name!=#{real_name}
+ 	</select>
+ 	
+ 	<select id="stuLikeName" resultType="user">
+ 		select * from user where real_name like "%"#{real_name}"%" and permission=#{permission} and college=#{college} and major=#{major} and classes=#{classes} and id!=#{id}
  	</select>
  	
  	<insert id="insertNotice" parameterType="notice">
@@ -41,7 +49,15 @@
  	</insert>
  	
  	<select id="selectNotice" resultType="notice">
+ 		select * from notice where notice_permission=#{notice_permission}
+ 	</select>
+ 	
+ 	<select id="selectAllNotice" resultType="notice">
  		select * from notice
+ 	</select>
+ 	
+ 	<select id="selectOtherTe" resultType="user">
+ 		select * from user where permission=#{permission} and id!=#{id}
  	</select>
  	
  	<delete id="deleteNotice" parameterType="String">
@@ -140,6 +156,10 @@
 		update grade set grade=#{grade} where stu_id=#{stu_id} and course_name=#{course_name}
 	</update>
 	
+	<update id="updateExam">
+		update grade set exam=#{exam} where course_name = #{course_name}
+	</update>
+	
 	<select id="selectGradeI" resultType="grade">
  		select * from grade where stu_id like "%"#{stu_id}"%"
  	</select>
@@ -166,5 +186,13 @@
  	
  	<select id="selectNull" resultType="grade">
  		select * from grade where stu_id = #{stu_id} and grade is null
+ 	</select>
+ 	
+ 	<update id="updateEvaluate">
+ 		update grade set evaluate=#{evaluate} where stu_id=#{stu_id} and course_id=#{course_id}
+ 	</update>
+ 	
+ 	<select id="selectEvaluate" parameterType="grade" resultType="String">
+ 		select evaluate from grade where stu_id=#{stu_id} and course_id=#{course_id}
  	</select>
  </mapper>
