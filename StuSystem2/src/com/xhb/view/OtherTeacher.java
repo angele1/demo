@@ -189,17 +189,17 @@ public class OtherTeacher extends JFrame {
 		User user = new User();
 		user = service.selectById(LoginFrame.un);
 		
-		List<User> list = service2.selectUserType(user.getPermission());
+		List<User> list = service2.selectOtherTe(user);
 
 		data = new Object[list.size()][head.length]; 
 		for(int i=0;i<list.size();i++)
 			for(int j=0;j<head.length;j++) {
-				if(!list.get(i).getId().equals(user.getId())) {
+				//if(!list.get(i).getId().equals(user.getId())) {
 					data[i][0]=list.get(i).getId();
 					data[i][1]=list.get(i).getReal_name();
 					data[i][2]= list.get(i).getPhone();
 					data[i][3]=list.get(i).getContact();
-				}
+				//}
 			}
 		return data;
 	}

@@ -158,9 +158,13 @@ public class UserManage extends JFrame {
 		button_5.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rowNum = table.getSelectedRow();
-				id = tableModel.getValueAt(rowNum, 0).toString();
-				new ViewUserInfo();
-				dispose();
+				if(rowNum<0) {
+					JOptionPane.showMessageDialog(contentPane, "请选择要查看的记录");
+				}else {
+					id = tableModel.getValueAt(rowNum, 0).toString();
+					new ViewUserInfo();
+					dispose();
+				}
 			}
 		});
 		button_5.setFont(new Font("楷体", Font.PLAIN, 18));

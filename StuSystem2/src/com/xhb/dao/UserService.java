@@ -21,12 +21,15 @@ public interface UserService {
 	List<User> selectClassmate(User user);
 	//模糊查询(id)用户
 	List<User> selectLikeId(User user);
+	List<User> stuLikeId(User user);
+	List<User> stuLikeName(User user);
 	//模糊查询(姓名)
 	List<User> selectLikeName(User user);
 	//插入通告
 	void insertNotice(Notice notice);
 	//查询通告
-	List<Notice> selectNotice();
+	List<Notice> selectNotice(String permission);
+	List<Notice> selectAllNotice();
 	//删除通告
 	void deleteNotice(String content);
 	//更新通告
@@ -72,4 +75,11 @@ public interface UserService {
 	
 	List<Course> selectOtherCourse(Grade grade);
 	List<Grade> selectNull(Grade grade);
+	
+	void updateExam(Grade grade);
+	
+	void updateEvaluate(Grade grade);
+	String selectEvaluate(Grade grade);
+	
+	List<User> selectOtherTe(User user);
 }

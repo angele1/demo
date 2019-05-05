@@ -5,14 +5,18 @@ import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import org.apache.ibatis.jdbc.Null;
+
 import com.xhb.dao.UserService;
 import com.xhb.dao.UserServiceImpl;
 import com.xhb.entity.Grade;
+import com.xhb.utils.IsEmpty;
 
 import java.awt.Toolkit;
 import javax.swing.GroupLayout;
@@ -34,6 +38,7 @@ public class MyCourseInfo extends JFrame {
 	private DefaultTableModel tableModel;
 	private JButton button;
 	private JButton button_1;
+	static String c_id;
 	/**
 	 * Launch the application.
 	 */
@@ -85,29 +90,61 @@ public class MyCourseInfo extends JFrame {
 		});
 		button_1.setFont(new Font("楷体", Font.PLAIN, 18));
 		
+		JButton button_2 = new JButton("\u8BFE\u7A0B\u8BC4\u4EF7");
+		button_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				int rowNum = table.getSelectedRow();
+				//String grade = tableModel.getValueAt(rowNum, 2).toString();
+				if(rowNum<0) {
+					JOptionPane.showMessageDialog(contentPane,"请选择课程");
+				}else {
+					if(tableModel.getValueAt(rowNum, 2)==null) {
+						JOptionPane.showMessageDialog(contentPane, "该课程还未结束");
+						
+					}else {
+						UserService service = new UserServiceImpl();
+						c_id = tableModel.getValueAt(rowNum, 0).toString();
+						Grade grade = new Grade();
+						grade.setCourse_id(c_id);
+						grade.setStu_id(LoginFrame.un);
+						String evaluate = service.selectEvaluate(grade);
+						if(evaluate.equals("是")) {
+							JOptionPane.showMessageDialog(contentPane, "这门课程你已经评价过");
+							//dispose();
+						}else {
+							new Evaluate();
+						}
+					}
+				}
+			}
+		});
+		button_2.setFont(new Font("楷体", Font.PLAIN, 18));
+		
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(24)
-							.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(91)
-							.addComponent(button)
-							.addGap(71)
-							.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)))
+					.addGap(24)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
 					.addContainerGap(19, Short.MAX_VALUE))
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGap(34)
+					.addComponent(button)
+					.addPreferredGap(ComponentPlacement.RELATED, 44, Short.MAX_VALUE)
+					.addComponent(button_2)
+					.addGap(41)
+					.addComponent(button_1, GroupLayout.PREFERRED_SIZE, 105, GroupLayout.PREFERRED_SIZE)
+					.addGap(53))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
 					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 245, GroupLayout.PREFERRED_SIZE)
-					.addPreferredGap(ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
+					.addPreferredGap(ComponentPlacement.RELATED, 43, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(button)
 						.addComponent(button_1)
-						.addComponent(button))
+						.addComponent(button_2))
 					.addGap(40))
 		);
 		contentPane.setLayout(gl_contentPane);

@@ -82,7 +82,7 @@ public class OnlineEx extends JFrame {
 					courseId = tableModel.getValueAt(rowNum, 0).toString();
 					if(tableModel.getValueAt(rowNum, 2).toString().equals("ÊÇ")) {
 						new Exam();
-						dispose();
+						//dispose();
 					}else {
 						JOptionPane.showMessageDialog(contentPane, "¿¼ÊÔÉÐÎ´¿ªÊ¼");
 					}
@@ -126,7 +126,7 @@ public class OnlineEx extends JFrame {
 			for(int j=0;j<head.length;j++) {
 				data[i][0]=list.get(i).getCourse_id();
 				data[i][1]=list.get(i).getCourse_name();
-				data[i][2]="·ñ";
+				data[i][2]=list.get(i).getExam();
 			}
 		return data;
 	}

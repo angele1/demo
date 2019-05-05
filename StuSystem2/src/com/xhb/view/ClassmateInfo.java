@@ -51,6 +51,7 @@ public class ClassmateInfo extends JFrame {
 	private JButton button_1;
 	private List<User> list;
 	private List<User> list1;
+	//private int rowNum;
 	/**
 	 * Launch the application.
 	 */
@@ -159,29 +160,45 @@ public class ClassmateInfo extends JFrame {
 	protected void searchStu(ActionEvent e) {
 		searchId = stuIdField.getText();
 		searchName = nameField.getText();
-		User user = new User();
-		UserService service2 = new UserServiceImpl();
-		user = service2.selectById(LoginFrame.un);
+		
+		
+		
 		if(IsEmpty.IsEmpty(searchId)&&IsEmpty.IsEmpty(searchName)) {
 			JOptionPane.showMessageDialog(this, "«Î ‰»ÎÀ—À˜ƒ⁄»›");
 		}
 		if(IsEmpty.notEmpty(searchId)||IsEmpty.notEmpty(searchName)) {
-			UserService service = new UserServiceImpl();
+			
+			
+			
 			if(IsEmpty.IsEmpty(searchName)&&IsEmpty.notEmpty(searchId)) {
-				list1 = service.selectLikeId(user);
+				User user = new User();
+				UserService service2 = new UserServiceImpl();
+				user = service2.selectById(LoginFrame.un);
+				user.setId(searchId);
+				UserService service = new UserServiceImpl();
+				list1 = service.stuLikeId(user);
 				data1 = new Object[list1.size()][head.length];
 				for(int i=0;i<list1.size();i++)
 					for(int j=0;j<head.length;j++) {
-						data1[i][0]=list1.get(i).getId();
-						data1[i][1]=list1.get(i).getReal_name();
-						data1[i][2]=list1.get(i).getPhone();
-						data1[i][3]=list1.get(i).getContact();
+						//if(!list1.get(i).getId().equals(LoginFrame.un)) {
+							data1[i][0]=list1.get(i).getId();
+							data1[i][1]=list1.get(i).getReal_name();
+							data1[i][2]=list1.get(i).getPhone();
+							data1[i][3]=list1.get(i).getContact();
+						//}
 					}
 				tableModel = new DefaultTableModel(data1, head);
 				table.setModel(tableModel);
 			}
+		
 			else if(IsEmpty.IsEmpty(searchId)&&IsEmpty.notEmpty(searchName)) {
-				list1 = service.selectLikeName(user);
+				UserService service3 = new UserServiceImpl();
+				User user = new User();
+				user = service3.selectByName(LoginFrame.userN);
+				user.setReal_name(searchName);
+				user.setPermission("0");
+				UserService service = new UserServiceImpl();
+				list1 = service.stuLikeName(user);
 				data1 = new Object[list1.size()][head.length];
 				for(int i=0;i<list1.size();i++)
 					for(int j=0;j<head.length;j++) {
@@ -194,8 +211,9 @@ public class ClassmateInfo extends JFrame {
 				table.setModel(tableModel);
 			}
 		}
-		
 	}
+		
+	
 
 	public Object[][] queryData() {
 		//Object[][] data1=null;
@@ -210,10 +228,12 @@ public class ClassmateInfo extends JFrame {
 		data = new Object[list.size()][head.length]; 
 		for(int i=0;i<list.size();i++)
 			for(int j=0;j<head.length;j++) {
-				data[i][0]=list.get(i).getId();
-				data[i][1]=list.get(i).getReal_name();
-				data[i][2]=list.get(i).getPhone();
-				data[i][3]=list.get(i).getContact();
+				//if(!user.getReal_name().equals(list.get(i).getReal_name())) {
+					data[i][0]=list.get(i).getId();
+					data[i][1]=list.get(i).getReal_name();
+					data[i][2]=list.get(i).getPhone();
+					data[i][3]=list.get(i).getContact();
+				//}
 			}
 		return data;
 	}

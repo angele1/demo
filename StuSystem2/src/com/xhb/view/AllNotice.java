@@ -149,7 +149,7 @@ public class AllNotice extends JFrame {
 	public Object[][] queryAll() {
 		
 		UserService service = new UserServiceImpl();
-		List<Notice> list = service.selectNotice();
+		List<Notice> list = service.selectAllNotice();
 		data = new Object[list.size()][head.length];
 		for(int i=0;i<list.size();i++)
 			for(int j=0;j<head.length;j++) {

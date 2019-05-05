@@ -113,40 +113,37 @@ public class StudentsOp extends JFrame {
 		DefaultTableModel tableModel = new DefaultTableModel(data, head);
 		table = new JTable(tableModel);
 		JScrollPane scrollPane = new JScrollPane(table);
-		
-		JLabel label_1 = new JLabel("\u901A\u544A");
-		label_1.setFont(new Font("¿¬Ìå", Font.PLAIN, 18));
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
+				.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
 					.addGap(32)
 					.addComponent(lblXxx)
-					.addGap(15)
+					.addPreferredGap(ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(courseInfoBtn)
 						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(stuInfoBtn)
-							.addPreferredGap(ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
-							.addComponent(classInfoBtn))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addComponent(label)
-							.addGap(59)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(label_1)
-								.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 332, GroupLayout.PREFERRED_SIZE)))
+							.addComponent(courseInfoBtn)
+							.addContainerGap())
 						.addGroup(Alignment.TRAILING, gl_contentPane.createSequentialGroup()
-							.addComponent(changePsBtn)
-							.addPreferredGap(ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
-							.addComponent(examBtn)))
-					.addGap(93))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(changePsBtn)
+									.addPreferredGap(ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+									.addComponent(examBtn))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(stuInfoBtn)
+									.addPreferredGap(ComponentPlacement.RELATED, 221, Short.MAX_VALUE)
+									.addComponent(classInfoBtn))
+								.addGroup(gl_contentPane.createSequentialGroup()
+									.addComponent(label)
+									.addGap(59)
+									.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 332, GroupLayout.PREFERRED_SIZE)))
+							.addGap(93))))
 		);
 		gl_contentPane.setVerticalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
 				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(14)
-					.addComponent(label_1)
-					.addPreferredGap(ComponentPlacement.RELATED)
+					.addGap(42)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addComponent(lblXxx)
 						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
@@ -156,16 +153,13 @@ public class StudentsOp extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(stuInfoBtn)
 						.addComponent(classInfoBtn))
-					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(46)
-							.addComponent(examBtn))
-						.addGroup(gl_contentPane.createSequentialGroup()
-							.addGap(32)
-							.addComponent(changePsBtn)))
-					.addGap(18)
+					.addGap(30)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(changePsBtn)
+						.addComponent(examBtn))
+					.addGap(32)
 					.addComponent(courseInfoBtn)
-					.addGap(22))
+					.addGap(24))
 		);
 		contentPane.setLayout(gl_contentPane);
 		setVisible(true);
@@ -174,14 +168,14 @@ public class StudentsOp extends JFrame {
 	public Object[][] queryAll() {
 		int x=0;
 		UserService service = new UserServiceImpl();
-		List<Notice> list = service.selectNotice();
+		List<Notice> list = service.selectNotice("0");
 		data = new Object[list.size()][head.length];
 		for(int i=0;i<list.size();i++)
 			for(int j=0;j<head.length;j++) {
-				if(list.get(i).getNotice_permission().equals("0")) {
+				//if(list.get(i).getNotice_permission().equals("0")) {
 					data[x][0]=list.get(i).getNotice_content();
 					x++;
-				}
+				//}
 			}
 		return data;
 		}

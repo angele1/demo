@@ -86,8 +86,8 @@ public class UserServiceImpl implements UserService {
 		
 	}
 	@Override
-	public List<Notice> selectNotice() {
-		List<Notice> list = sqlSession.selectList("selectNotice");
+	public List<Notice> selectNotice(String permission) {
+		List<Notice> list = sqlSession.selectList("selectNotice",permission);
 		return list;
 	}
 	@Override
@@ -288,6 +288,51 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<Grade> selectNull(Grade grade) {
 		List<Grade> list = sqlSession.selectList("selectNull", grade);
+		sqlSession.close();
+		return list;
+	}
+	@Override
+	public void updateExam(Grade grade) {
+		sqlSession.update("updateExam", grade);
+		sqlSession.commit();
+		sqlSession.close();
+		
+	}
+	@Override
+	public List<User> stuLikeId(User user) {
+		List<User> list = sqlSession.selectList("stuLikeId", user);
+		sqlSession.close();
+		return list;
+	}
+	@Override
+	public List<User> stuLikeName(User user) {
+		List<User> list = sqlSession.selectList("stuLikeName", user);
+		sqlSession.close();
+		return list;
+	}
+	@Override
+	public void updateEvaluate(Grade grade) {
+		sqlSession.update("updateEvaluate", grade);
+		sqlSession.commit();
+		sqlSession.close();
+	
+		
+	}
+	@Override
+	public String selectEvaluate(Grade grade) {
+		String evaluate = sqlSession.selectOne("selectEvaluate", grade);
+		sqlSession.close();
+		return evaluate;
+	}
+	@Override
+	public List<Notice> selectAllNotice() {
+		List<Notice> list = sqlSession.selectList("selectAllNotice");
+		sqlSession.close();
+		return list;
+	}
+	@Override
+	public List<User> selectOtherTe(User user) {
+		List<User> list = sqlSession.selectList("selectOtherTe", user);
 		sqlSession.close();
 		return list;
 	}

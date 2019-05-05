@@ -7,11 +7,12 @@ public class Grade {
 	private String grade;
 	private String course_id;
 	private String exam;
+	private String evaluate;
 	public Grade() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Grade(String stu_id, String stu_name, String course_name, String grade,String course_id,String exam) {
+	public Grade(String stu_id, String stu_name, String course_name, String grade,String course_id,String exam,String evaluate) {
 		super();
 		this.stu_id = stu_id;
 		this.stu_name = stu_name;
@@ -19,6 +20,7 @@ public class Grade {
 		this.grade = grade;
 		this.course_id = course_id;
 		this.exam = exam;
+		this.evaluate = evaluate;
 	}
 	public String getExam() {
 		return exam;
@@ -56,11 +58,18 @@ public class Grade {
 	public void setGrade(String grade) {
 		this.grade = grade;
 	}
+	public String getEvaluate() {
+		return evaluate;
+	}
+	public void setEvaluate(String evaluate) {
+		this.evaluate = evaluate;
+	}
 	@Override
 	public String toString() {
 		return "Grade [stu_id=" + stu_id + ", stu_name=" + stu_name + ", course_name=" + course_name + ", grade="
-				+ grade + ", course_id=" + course_id + ", exam=" + exam + "]";
+				+ grade + ", course_id=" + course_id + ", exam=" + exam + ", evaluate=" + evaluate + "]";
 	}
+
 	
 
 	
