@@ -178,8 +178,13 @@ public class AddGrade extends JFrame {
 		}
 		if(!result) {
 			UserService service2 = new UserServiceImpl();
-			service2.insertGrade(grade);
-			JOptionPane.showMessageDialog(this, "添加成功");
+			if(service2.selectById(idField.getText())==null) {
+				JOptionPane.showMessageDialog(this, "该学生不存在");
+			}else {
+				UserService service3 = new UserServiceImpl();
+				service3.insertGrade(grade);
+				JOptionPane.showMessageDialog(this, "添加成功");
+			}
 		}
 	}
 

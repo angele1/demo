@@ -336,6 +336,27 @@ public class UserServiceImpl implements UserService {
 		sqlSession.close();
 		return list;
 	}
+	@Override
+	public void updateCourseExam(Course course) {
+		sqlSession.update("updateCourseExam", course);
+		sqlSession.commit();
+		sqlSession.close();
+		
+		
+	}
+	@Override
+	public String selectCoExam(String co_name) {
+		String exam = sqlSession.selectOne("selectCoExam", co_name);
+		sqlSession.close();
+		return exam;
+		
+	}
+	@Override
+	public User selectTeacher(User user) {
+		User list = sqlSession.selectOne("selectTeacher", user);
+		sqlSession.close();
+		return list;
+	}
 	
 	
 

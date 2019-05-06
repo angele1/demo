@@ -35,6 +35,7 @@ public class NoticeManage extends JFrame {
 	private static String permission;
 	private String content;
 	private JTextArea noticeCo;
+	private int status;
 	/**
 	 * Launch the application.
 	 */
@@ -98,8 +99,10 @@ public class NoticeManage extends JFrame {
 		button_2.setFont(new Font("¿¬Ìå", Font.PLAIN, 18));
 		
 		JComboBox comboBox = new JComboBox();
+		status = comboBox.getSelectedIndex();
 		comboBox.addItemListener(new ItemListener() {
 			public void itemStateChanged(ItemEvent e) {
+				status = 1;
 				if(comboBox.getSelectedItem().toString().equals("Ñ§Éú")) {
 					permission = "0";
 				}else {
@@ -159,6 +162,7 @@ public class NoticeManage extends JFrame {
 		setVisible(true);
 	}
 	protected void addNotice(ActionEvent e) {
+		if(status==-1) permission="0";
 		content = noticeCo.getText().toString();
 		Notice notice = new Notice();
 		notice.setNotice_content(content);

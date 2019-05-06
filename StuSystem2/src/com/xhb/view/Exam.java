@@ -300,7 +300,9 @@ public class Exam extends JFrame implements ActionListener{
 		
 			AddGrade();
 			commit.setEnabled(false);
-			System.exit(0);          //ÍË³ö
+			//System.exit(0);          //ÍË³ö
+			dispose();
+			
 		}
 		
 		if(e.getSource()==rdbtnA) questions[p].setSelectKey("A");

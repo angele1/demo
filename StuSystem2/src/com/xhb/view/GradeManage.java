@@ -130,8 +130,9 @@ public class GradeManage extends JFrame {
 		JButton button_1 = new JButton("\u8FD4\u56DE");
 		button_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				//dispose();
 				new AdminOp();
+				dispose();
+				
 			}
 		});
 		button_1.setFont(new Font("¿¬Ìå", Font.PLAIN, 18));

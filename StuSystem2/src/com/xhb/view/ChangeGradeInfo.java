@@ -90,8 +90,11 @@ public class ChangeGradeInfo extends JFrame {
 		grade2.setStu_id(GradeManage.stuId);
 		grade2.setCourse_name(GradeManage.courseId);
 		grade = service.selectGrade(grade2);
-		
-		textField = new JTextField(GradeManage.gra);
+		if(IsEmpty.IsEmpty(GradeManage.gra)) {
+			textField = new JTextField();
+		}else {
+			textField = new JTextField(GradeManage.gra);
+		}
 		textField.setFont(new Font("¿¬Ìå", Font.PLAIN, 18));
 		textField.setColumns(10);
 		

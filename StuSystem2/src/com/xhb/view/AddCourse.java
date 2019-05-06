@@ -10,6 +10,7 @@ import javax.swing.border.EmptyBorder;
 import com.xhb.dao.UserService;
 import com.xhb.dao.UserServiceImpl;
 import com.xhb.entity.Course;
+import com.xhb.entity.User;
 
 import java.awt.Toolkit;
 import javax.swing.GroupLayout;
@@ -28,7 +29,10 @@ public class AddCourse extends JFrame {
 	private JTextField idField;
 	private JTextField nameField;
 	private JTextField teField;
-
+	private String teacherId;
+	private JTextField teacherIdField;
+	private String teacherName;
+	private String courseId;
 	/**
 	 * Launch the application.
 	 */
@@ -81,13 +85,18 @@ public class AddCourse extends JFrame {
 		JButton button = new JButton("\u786E\u8BA4\u6DFB\u52A0");
 		button.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Course course = new Course();
-				course.setCourse_id(idField.getText());
-				course.setCourse_name(nameField.getText());
-				course.setCourse_te(teField.getText());
-				UserService service = new UserServiceImpl();
-				service.insertCourse(course);
-				JOptionPane.showMessageDialog(contentPane, "添加成功");
+				teacherId = teacherIdField.getText();
+				teacherName = teField.getText();
+				courseId = idField.getText();
+				User user = new User();
+				user.setId(teacherId);
+				user.setReal_name(teacherName);
+				if(hasUser(user)&&!hasCourse(courseId)) {
+					addCourseOp();
+				}
+				else {
+					JOptionPane.showMessageDialog(contentPane, "添加失败");
+				}
 			}
 		});
 		button.setFont(new Font("楷体", Font.PLAIN, 18));
@@ -98,9 +107,16 @@ public class AddCourse extends JFrame {
 				idField.setText("");
 				nameField.setText("");
 				teField.setText("");
+				teacherIdField.setText("");
 			}
 		});
 		button_1.setFont(new Font("楷体", Font.PLAIN, 18));
+		
+		JLabel label_3 = new JLabel("\u6559\u5E08\u5DE5\u53F7");
+		label_3.setFont(new Font("楷体", Font.PLAIN, 18));
+		
+		teacherIdField = new JTextField();
+		teacherIdField.setColumns(10);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(
 			gl_contentPane.createParallelGroup(Alignment.LEADING)
@@ -111,12 +127,14 @@ public class AddCourse extends JFrame {
 							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(label)
 								.addComponent(label_1)
-								.addComponent(label_2))
+								.addComponent(label_2)
+								.addComponent(label_3))
 							.addGap(73)
-							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-								.addComponent(teField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(nameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-								.addComponent(idField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)))
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING, false)
+								.addComponent(teField)
+								.addComponent(nameField)
+								.addComponent(idField)
+								.addComponent(teacherIdField)))
 						.addGroup(gl_contentPane.createSequentialGroup()
 							.addGap(82)
 							.addComponent(button)
@@ -135,18 +153,53 @@ public class AddCourse extends JFrame {
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
 						.addComponent(label_1)
 						.addComponent(nameField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(34)
+					.addGap(31)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+						.addComponent(label_3)
+						.addComponent(teacherIdField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(label_2)
 						.addComponent(teField, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-					.addGap(64)
+					.addGap(34)
 					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(button)
 						.addComponent(button_1))
-					.addContainerGap(67, Short.MAX_VALUE))
+					.addContainerGap(56, Short.MAX_VALUE))
 		);
 		contentPane.setLayout(gl_contentPane);
 		setVisible(true);
 	}
 
+	protected void addCourseOp() {
+		Course course = new Course();
+		course.setCourse_id(idField.getText());
+		course.setCourse_name(nameField.getText());
+		course.setCourse_te(teField.getText());
+		course.setTeacherId(teacherId);
+		course.setExam("否");
+		UserService service = new UserServiceImpl();
+		service.insertCourse(course);
+		JOptionPane.showMessageDialog(contentPane, "添加成功");
+		
+	}
+	
+	protected boolean hasUser(User user) {
+		UserService service = new UserServiceImpl();
+		User user2 = service.selectTeacher(user);
+		if(user2!=null) {
+			return true;
+		}
+		return false;
+		
+	}
+	
+	protected boolean hasCourse(String courseId) {
+		UserService service = new UserServiceImpl();
+		Course course = service.selectCourseById(courseId);
+		if(course!=null) {
+			return true;
+		}
+		return false;
+	}
 }

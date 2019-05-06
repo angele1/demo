@@ -140,6 +140,7 @@ public class ChooseCourse extends JFrame {
 		grade.setStu_name(LoginFrame.userN);
 		grade.setCourse_name(coName);
 		grade.setCourse_id(coId);
+		grade.setEvaluate("·ñ");
 		//grade.setCourse_id();
 		grade.setExam("·ñ");
 		service.insertGrade(grade);

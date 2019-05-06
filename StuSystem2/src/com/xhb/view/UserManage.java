@@ -9,6 +9,8 @@ import javax.swing.JScrollPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
+import org.apache.logging.log4j.core.config.status.StatusConfiguration;
+
 import com.xhb.dao.UserService;
 import com.xhb.dao.UserServiceImpl;
 import com.xhb.entity.User;
@@ -43,12 +45,13 @@ public class UserManage extends JFrame {
 	private Object[][] data1;
 	private String[] head= {"学工号","姓名","用户类型"};
 	private DefaultTableModel tableModel;
-	private String userType;
+	private String userType="";
 	private String searchId;
 	private String searchName;
 	private String permission;
 	private int rowNum;
 	static String id;
+	private int status;
 	/**
 	 * Launch the application.
 	 */
@@ -97,9 +100,14 @@ public class UserManage extends JFrame {
 		nameFindField.setColumns(10);
 		
 		JComboBox comboBox = new JComboBox();
+		//status =(String)comboBox.getSelectedItem();
+		status = comboBox.getSelectedIndex();
+		//System.out.println(status);
 		comboBox.addItemListener(new ItemListener() {
-			public void itemStateChanged(ItemEvent arg0) {
-				userType = comboBox.getSelectedItem().toString();
+			public void itemStateChanged(ItemEvent e) {
+					status=1;
+					userType = comboBox.getSelectedItem().toString();
+				
 			}
 		});
 		comboBox.setModel(new DefaultComboBoxModel(new String[] {"\u5B66\u751F", "\u6559\u5E08", "\u7BA1\u7406\u5458"}));
@@ -126,9 +134,13 @@ public class UserManage extends JFrame {
 		button_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				rowNum = table.getSelectedRow();
-				deleteUserOp(e);
-				tableModel.removeRow(rowNum);
-				JOptionPane.showMessageDialog(contentPane, "删除成功");
+				if(rowNum<0) {
+					JOptionPane.showMessageDialog(contentPane, "请选择要删除行");
+				}else {
+					deleteUserOp(e);
+					tableModel.removeRow(rowNum);
+					JOptionPane.showMessageDialog(contentPane, "删除成功");
+				}
 			}
 		});
 		button_2.setFont(new Font("楷体", Font.PLAIN, 18));
@@ -239,7 +251,8 @@ public class UserManage extends JFrame {
 		searchName = nameFindField.getText();
 		UserService service = new UserServiceImpl();
 		if(IsEmpty.IsEmpty(searchId)&&IsEmpty.IsEmpty(searchName)) {
-			if(userType.equals("学生")||IsEmpty.IsEmpty(userType)) {
+			if(userType.equals("学生")||status==-1) {
+				userType="学生";
 				permission = "0";
 			}else if(userType.equals("教师")) {
 				permission = "1";

@@ -37,7 +37,7 @@ public class CourseManage extends JFrame {
 	private JTextField nameField;
 	private DefaultTableModel tableModel;
 	private Object[][] data;
-	private String[] head= {"课程编号","课程名","任课教师"};
+	private String[] head= {"课程编号","课程名","教师工号","任课教师"};
 	private Object[][] data1;
 	private String searchId;
 	private String searchName;
@@ -234,7 +234,8 @@ public class CourseManage extends JFrame {
 						for(int j=0;j<head.length;j++) {
 							data1[i][0]=list1.get(i).getCourse_id();
 							data1[i][1]=list1.get(i).getCourse_name();
-							String p = list1.get(i).getCourse_te();
+							data1[i][2]= list1.get(i).getTeacherId();
+							data1[i][3]=list1.get(i).getCourse_te();
 							
 						}
 					tableModel = new DefaultTableModel(data1, head);
@@ -249,7 +250,8 @@ public class CourseManage extends JFrame {
 							for(int j=0;j<head.length;j++) {
 								data1[i][0]=list1.get(i).getCourse_id();
 								data1[i][1]=list1.get(i).getCourse_name();
-								data[i][2] = list1.get(i).getCourse_te();
+								data1[i][2] = list1.get(i).getTeacherId();
+								data1[i][3]=list1.get(i).getCourse_te();
 								
 							}
 						tableModel = new DefaultTableModel(data1, head);
@@ -269,7 +271,8 @@ public class CourseManage extends JFrame {
 			for(int j=0;j<head.length;j++) {
 				data[i][0]=list.get(i).getCourse_id();
 				data[i][1]=list.get(i).getCourse_name();
-				data[i][2]= list.get(i).getCourse_te();
+				data[i][2]= list.get(i).getTeacherId();
+				data[i][3]=list.get(i).getCourse_te();
 			}
 		return data;
 	}
