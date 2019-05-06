@@ -61,7 +61,7 @@
  	</select>
  	
  	<delete id="deleteNotice" parameterType="String">
- 		delete from notice where notice_content=#{notice_content}
+ 		delete from notice where notice_id=#{notice_id}
  	</delete>
  	
  	<update id="updateNotice">
@@ -100,12 +100,14 @@
  		select * from course where course_id=#{course_id}
  	</select>
  	
+ 	
+ 	
  	<update id="updateCourse">
  		update course set course_name=#{course_name}, course_te=#{course_te} where course_id=#{course_id}
  	</update>
  	
  	<insert id="insertCourse" parameterType="course">
- 		insert into course(course_id,course_name,course_te) values(#{course_id},#{course_name},#{course_te})
+ 		insert into course(course_id,course_name,course_te,exam,teacherId) values(#{course_id},#{course_name},#{course_te},#{exam},#{teacherId})
  	</insert>
  	
  	<delete id="deleteCourse">
@@ -141,7 +143,7 @@
 	</select>
 	
 	<insert id="insertGrade" parameterType="grade">
-		insert into grade(stu_id,stu_name,course_name,grade,course_id,exam) values(#{stu_id},#{stu_name},#{course_name},#{grade},#{course_id},#{exam})
+		insert into grade(stu_id,stu_name,course_name,grade,course_id,exam,evaluate) values(#{stu_id},#{stu_name},#{course_name},#{grade},#{course_id},#{exam},#{evaluate})
 	</insert>
 	
 	<delete id="deleteGrade">
@@ -194,5 +196,17 @@
  	
  	<select id="selectEvaluate" parameterType="grade" resultType="String">
  		select evaluate from grade where stu_id=#{stu_id} and course_id=#{course_id}
+ 	</select>
+ 	
+ 	<update id="updateCourseExam" parameterType="course">
+ 		update course set exam=#{exam} where course_name=#{course_name}
+ 	</update>
+ 	
+ 	<select id="selectCoExam" parameterType="String" resultType="String">
+ 		select exam from course where course_name=#{course_name}
+ 	</select>
+ 	
+ 	<select id="selectTeacher" resultType="user" parameterType="user">
+ 		select * from user where id=#{id} and real_name=#{real_name}
  	</select>
  </mapper>
